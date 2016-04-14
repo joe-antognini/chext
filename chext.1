@@ -4,11 +4,11 @@
 - change a file extension
 .SH SYNOPSIS
 .BI chext
-.I source extension
+.I source ... extension
 .SH DESCRIPTION
 The
 .B chext
-utility moves the file named by the
+utility moves the file(s) named by the
 .I source
 operand to the new extension named by the
 .I extension
@@ -19,14 +19,14 @@ It is an error for the
 operand to lack an extension.
 .SH OPTIONS
 .TP 8
-.B -i, --interactive
+.B -i
 Cause
 .B chext
 to write a prompt to standard error before moving a file that would
 overwrite an existing file.  If the response from the standard input begins
 with the character `y' or `Y', the move is attempted.
 .TP
-.B -v, --verbose
+.B -v
 Cause
 .B chext
 to be verbose, showing the original and final filename.
@@ -39,6 +39,10 @@ foo.bar
 $ chext foo.bar baz
 $ ls
 foo.baz
+$ touch qux.baz
+$ chext *.baz bar
+$ ls
+foo.bar  qux.bar
 .fi
 .SH LICENSE
 The MIT License

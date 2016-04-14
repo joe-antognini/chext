@@ -10,46 +10,61 @@
 # Moves foo.bar to foo.baz.
 #
 
-option_v=""
-option_i=""
+vflag=""
+iflag=""
 # Process command line arguments
-while [[ $# > 2 ]]
+while getopts "vi" opt
 do
-  key="$1"
-
-  case $key in
-    -v|--verbose)
-    option_v="-v"
+  case "$opt" in
+  -v)
+    vflag="-v"
     ;;
-    -i|--interactive)
-    option_i="-i"
+  -i)
+    iflag="-i"
     ;;
   esac
-  shift
 done
 
+shift $((OPTIND-1))
+[ "$1" = "--" ] && shift
+
 # Usage statement
-if [[ $# -ne 2 ]]
+if [[ $# -lt 2 ]]
 then
-  (>&2 echo "usage: chext [-i] [-v] source extension")
+  (>&2 echo "usage: chext [-i] [-v] source ... extension")
   exit 1
 fi
 
-errmsg_noext="chext: change extension of $1 to $2: File has no extension"
+# Get the last argument (i.e., the extension)
+for ext
+do
+  true
+done
 
-# Check to see if the file has a "." in it
-if [[ ! $1 =~ .*\..* ]]
-then
-  (>&2 echo "$errmsg_noext")
-  exit 1
-fi  
+while [[ $# -ge 2 ]]
+do
+  errmsg_noext="chext: change extension of $1 to $ext: File has no extension"
+  errmsg_nofile="chext: change extension of $1 to $ext: No such file"
 
-# Check to see if the file is hidden and has no extension
-if [ -z ${1%\.*} ]
-then
-  (>&2 echo "$errmsg_noext")
-  exit 1
-fi
+  # Check to see if the file exists
+  if [ ! -e $1 ]
+  then
+    (>&2 echo "$errmsg_nofile")
+  fi
 
-# Change the extension
-mv $option_v $option_i $1 ${1%\.*}.$2
+  # Check to see if the file has a "." in it
+  if [[ ! $1 =~ .*\..* ]]
+  then
+    (>&2 echo "$errmsg_noext")
+  fi  
+
+  # Check to see if the file is hidden and has no extension
+  if [ -z ${1%\.*} ]
+  then
+    (>&2 echo "$errmsg_noext")
+  fi
+
+  # Change the extension
+  mv $vflag $iflag $1 ${1%\.*}.$ext
+  shift
+done
