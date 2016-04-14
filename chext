@@ -1,0 +1,55 @@
+#! /bin/bash
+
+#
+# chext
+#
+# Change the extension of a file.
+#
+# usage: chext foo.bar baz
+#
+# Moves foo.bar to foo.baz.
+#
+
+option_v=""
+option_i=""
+# Process command line arguments
+while [[ $# > 2 ]]
+do
+  key="$1"
+
+  case $key in
+    -v|--verbose)
+    option_v="-v"
+    ;;
+    -i|--interactive)
+    option_i="-i"
+    ;;
+  esac
+  shift
+done
+
+# Usage statement
+if [[ $# -ne 2 ]]
+then
+  (>&2 echo "usage: chext [-i] [-v] source extension")
+  exit 1
+fi
+
+errmsg_noext="chext: change extension of $1 to $2: File has no extension"
+
+# Check to see if the file has a "." in it
+if [[ ! $1 =~ .*\..* ]]
+then
+  (>&2 echo "$errmsg_noext")
+  exit 1
+fi  
+
+# Check to see if the file is hidden and has no extension
+if [ -z ${1%\.*} ]
+then
+  (>&2 echo "$errmsg_noext")
+  exit 1
+fi
+
+# Change the extension
+mv $option_v $option_i $1 ${1%\.*}.$2
