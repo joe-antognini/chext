@@ -1,0 +1,6 @@
+- Add an installation script and Makefile
+  * Running `make' will install locally (in ~/bin)
+  * Running `make install' will install system-wide (in /usr/local) 
+  * Update README
+  * Add to PPA for apt-get package manager
+  * Add to homebrew
