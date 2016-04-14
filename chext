@@ -50,18 +50,24 @@ do
   if [ ! -e $1 ]
   then
     (>&2 echo "$errmsg_nofile")
+    shift
+    continue
   fi
 
   # Check to see if the file has a "." in it
   if [[ ! $1 =~ .*\..* ]]
   then
     (>&2 echo "$errmsg_noext")
+    shift
+    continue
   fi  
 
   # Check to see if the file is hidden and has no extension
   if [ -z ${1%\.*} ]
   then
     (>&2 echo "$errmsg_noext")
+    shift
+    continue
   fi
 
   # Change the extension
