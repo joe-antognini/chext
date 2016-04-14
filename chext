@@ -16,10 +16,10 @@ iflag=""
 while getopts "vi" opt
 do
   case "$opt" in
-  -v)
+  v)
     vflag="-v"
     ;;
-  -i)
+  i)
     iflag="-i"
     ;;
   esac
