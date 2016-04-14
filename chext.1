@@ -1,0 +1,46 @@
+.TH chext 1 "13 April 2016" "version 0.1"
+.SH NAME
+.B chext 
+- change a file extension
+.SH SYNOPSIS
+.BI chext
+.I source extension
+.SH DESCRIPTION
+The
+.B chext
+utility moves the file named by the
+.I source
+operand to the new extension named by the
+.I extension
+operand.
+.PP
+It is an error for the
+.I source
+operand to lack an extension.
+.SH OPTIONS
+.TP 8
+.B -i, --interactive
+Cause
+.B chext
+to write a prompt to standard error before moving a file that would
+overwrite an existing file.  If the response from the standard input begins
+with the character `y' or `Y', the move is attempted.
+.TP
+.B -v, --verbose
+Cause
+.B chext
+to be verbose, showing the original and final filename.
+.LP
+.SH EXAMPLES
+.nf
+$ touch foo.bar
+$ ls
+foo.bar
+$ chext foo.bar baz
+$ ls
+foo.baz
+.fi
+.SH LICENSE
+The MIT License
+.SH AUTHORS
+J. O'Brien Antognini (joe.antognini@gmail.com)
