@@ -13,7 +13,7 @@ teardown() {
 }
 
 @test "Check usage message" {
-  run chext.sh
+  run chext
   usage_msg="usage: chext [-i] [-v] source ... extension"
   [ "$usage_msg" == "$output" ]
 }
@@ -21,7 +21,7 @@ teardown() {
 @test "Change one extension" {
   cd .chext
   touch foo.bar
-  run ../chext.sh foo.bar baz
+  run ../chext foo.bar baz
   [ ! -e foo.bar ]
   [ -e foo.baz ]
   cd ..
@@ -30,7 +30,7 @@ teardown() {
 @test "Change multiple extensions" {
   cd .chext
   touch foo.bar qux.bar
-  run ../chext.sh *.bar baz
+  run ../chext *.bar baz
   [ ! -e foo.bar ]
   [ ! -e qux.bar ]
   [ -e foo.baz ]
@@ -41,7 +41,7 @@ teardown() {
 @test "Check verbose mode" {
   cd .chext
   touch foo.bar
-  run ../chext.sh -v foo.bar baz
+  run ../chext -v foo.bar baz
   verbose_msg="foo.bar -> foo.baz"
   [ "$verbose_msg" == "$output" ]
   cd ..
@@ -49,7 +49,7 @@ teardown() {
 
 @test "Try to change extension of non-existant file" {
   cd .chext
-  run ../chext.sh foo.bar baz
+  run ../chext foo.bar baz
   errmsg="chext: change extension of foo.bar to baz: No such file"
   [ "$errmsg" == "$output" ]
   [ ! -e foo.bar ]
@@ -61,7 +61,7 @@ teardown() {
 @test "Check for existence of extension" {
   cd .chext
   touch foo
-  run ../chext.sh foo bar
+  run ../chext foo bar
   errmsg="chext: change extension of foo to bar: File has no extension"
   [ "$errmsg" == "$output" ]
   [ -e foo ]
@@ -73,7 +73,7 @@ teardown() {
 @test "Check that chext doesn't accidentally move a hidden file" {
   cd .chext
   touch .foo
-  run ../chext.sh .foo bar
+  run ../chext .foo bar
   errmsg="chext: change extension of .foo to bar: File has no extension"
   [ "$errmsg" == "$output" ]
   [ -e .foo ]
@@ -85,7 +85,7 @@ teardown() {
 @test "Check interactive mode (y)" {
   cd .chext
   touch foo.bar foo.baz
-  run bash -c "echo y | ../chext.sh -i foo.* qux"
+  run bash -c "echo y | ../chext -i foo.* qux"
   [ -e foo.qux ]
   [ ! -e foo.bar ]
   [ ! -e foo.baz ]
@@ -95,7 +95,7 @@ teardown() {
 @test "Check interactive mode (n)" {
   cd .chext
   touch foo.bar foo.baz
-  run bash -c "echo n | ../chext.sh -i foo.* qux"
+  run bash -c "echo n | ../chext -i foo.* qux"
   [ -e foo.qux ]
   [ ! -e foo.bar ]
   [ -e foo.baz ]
