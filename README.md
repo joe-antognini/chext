@@ -5,7 +5,8 @@ of files.
 
 ## Installation
 
-Easy.  Run `install.sh`.  
+Clone the repository (`git clone
+https://github.com/joe-antognini/chext.git`).  Then run `install.sh`.  
 
 Depending on if you want to install to `/usr/local` (the default) on Linux
 you may need to run `sudo install.sh`.  You can alternatively follow the
