@@ -1,4 +1,4 @@
-# chext -- Change a file's extension
+# chext -- Change file extension(s)
 
 `chext` is a simple shell utility to change the extension of a file or list
 of files.
