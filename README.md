@@ -3,7 +3,7 @@
 `chext` is a simple shell utility to change the extension of a file or list
 of files.
 
-*Important note:*  [Joseph LaFreniere][1] has written a POSIX-complient fork of
+**Important note:**  [Joseph LaFreniere][1] has written a POSIX-complient fork of
 chext.  We recommend using his fork which can be found here:
 
 https://github.com/lafrenierejm/chext
