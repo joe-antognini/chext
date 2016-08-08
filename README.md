@@ -3,6 +3,11 @@
 `chext` is a simple shell utility to change the extension of a file or list
 of files.
 
+*Important note:*  [Joseph LaFreniere][1] has written a POSIX-complient fork of
+chext.  We recommend using his fork which can be found here:
+
+https://github.com/lafrenierejm/chext
+
 ## Installation
 
 Clone the repository (`git clone
@@ -67,3 +72,5 @@ chext: change extension of .foo to bar: File has no extension
 
 Run `uninstall.sh`.  This may fail to remove the man page if you put it
 somewhere unusual.
+
+[1]: https://github.com/lafrenierejm
